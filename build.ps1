@@ -45,6 +45,9 @@ function BuildRunHangman {
             }
             java -jar $jarPath
         }
+        {($_ -eq 'powershell') -or ($_ -eq 'pwsh') -or ($_ -eq 'ps')} {
+            . ($PSScriptRoot + '\Hangman\Powershell\hangman.ps1')
+        }
         {($_ -eq 'python') -or ($_ -eq 'py')} {
             . ($PSScriptRoot + '\Hangman\Python\hangman.py')
         }
