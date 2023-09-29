@@ -9,12 +9,7 @@ List<char> UsedLetters = new();
 
 while (HP > 0)
 {
-    if(UsedLetters.Count > 0)
-    {
-        Console.WriteLine($"Used letters: {string.Join("", UsedLetters)}");
-    }
-
-    DisplayGame(HP, Word.ToString());
+    DisplayGame(HP, Word.ToString(), UsedLetters.ToArray());
 
     char inputChar = GetPlayerCharacter();
     if (inputChar == char.MinValue)
@@ -52,7 +47,7 @@ while (HP > 0)
 }
 
 Console.WriteLine("John died!");
-DisplayGame(HP, Word.ToString());
+DisplayGame(HP, Word.ToString(), UsedLetters.ToArray());
 
 char GetPlayerCharacter()
 {
@@ -67,8 +62,15 @@ char GetPlayerCharacter()
     return input.ToLower()[0];
 }
 
-void DisplayGame(int hp, string word)
+void DisplayGame(int hp, string word, char[] usedLetters)
 {
+    Console.Clear();
+
+    if(UsedLetters.Count > 0)
+    {
+        Console.WriteLine($"Used letters: {string.Join("", UsedLetters)}");
+    }
+
     Console.WriteLine(@$"
   +---+
   |   |

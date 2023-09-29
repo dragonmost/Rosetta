@@ -1,3 +1,4 @@
+import os
 import random
 
 def get_player_character():
@@ -8,7 +9,12 @@ def get_player_character():
     
     return input_result.lower()
 
-def display_game(hp, word):
+def display_game(hp, word, used_letters):
+    os.system('cls')
+
+    if len(used_letters) > 0:
+        print("Used letters: " + ' '.join(used_letters))
+
     if hp <= 5:
         head = "O"
     else:
@@ -58,10 +64,7 @@ word = "".zfill(len(goal)).replace("0", "_")
 used_letters = []
 
 while hp > 0:
-    if len(used_letters) > 0:
-        print("Used letters: " + ' '.join(used_letters))
-
-    display_game(hp, word)
+    display_game(hp, word, used_letters)
     input_char = get_player_character()
     if input_char == " ":
         continue
@@ -87,4 +90,4 @@ while hp > 0:
 
 if hp == 0:
     print("John died!")
-    display_game(hp, word)
+    display_game(hp, word, used_letters)

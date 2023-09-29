@@ -13,9 +13,16 @@ function GetPlayerCharacter {
 function DisplayGame {
     param (
         [int]$hp,
-        [string]$word
+        [string]$word,
+        [array]$usedLetters
     )
 
+    Clear-Host
+
+    if ($usedLetters.Length -gt 0) {
+        Write-Host "Used letters: $usedLetters"
+    }
+    
     if ($hp -le 5) { $head = "O" } else { $head= " " }
     if ($hp -le 4) { $torso = "|" } else { $torso= " " }
     if ($hp -le 3) { $larm = "/" } else { $larm= " " }
@@ -41,11 +48,7 @@ $word = "".PadLeft($goal.length, '_')
 $usedLetters = @()
 
 while ($hp -gt 0) {
-    if ($usedLetters.Length -gt 0) {
-        Write-Host "Used letters: $usedLetters"
-    }
-
-    DisplayGame $hp $word
+    DisplayGame $hp $word $usedLetters
     $inputChar = GetPlayerCharacter
     if (-not $inputChar) {
         continue

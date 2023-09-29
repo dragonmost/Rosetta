@@ -7,11 +7,7 @@ fun main() {
     val usedLetters: MutableList<Char> = ArrayList()
 
     while (hp > 0) {
-        if (usedLetters.count() > 0) {
-            println("Used letters: ${usedLetters.joinToString(" ")}")
-        }
-
-        displayGame(hp, word)
+        displayGame(hp, word, usedLetters)
 
         val inputChar = getPlayerCharacter()
         if (inputChar == ' ') {
@@ -40,7 +36,7 @@ fun main() {
     }
 
     println("John died!")
-    displayGame(0, word)
+    displayGame(0, word, usedLetters)
 }
 
 fun randomWord(): String  {
@@ -51,14 +47,19 @@ fun randomWord(): String  {
     return dictionary[(0..dictionary.size -1).random()]
 }
 
-fun displayGame(hp: Int, word: StringBuilder) {
+fun displayGame(hp: Int, word: StringBuilder, usedLetters: MutableList<Char>) {
+    print("\u001b[H\u001b[2J")
+
+    if (usedLetters.count() > 0) {
+        println("Used letters: ${usedLetters.joinToString(" ")}")
+    }
+    
     var head = " "
     var torso = " "
     var larm = " "
     var rarm = " "
     var lleg = " "
     var rleg = " "
-    
     
     if (hp <= 5)
         head = "O"

@@ -8,7 +8,13 @@ def get_player_character
     return input
 end
 
-def display_game(hp, word)
+def display_game(hp, word, used_letters)
+    Gem.win_platform? ? (system "cls") : (system "clear")
+
+    if used_letters.length > 0
+        puts used_letters.join(" ")
+    end
+
     puts "    +---+
     |   |
     #{(hp <= 5 ? "O" : " ")}   |
@@ -35,11 +41,7 @@ word = "".ljust(goal.length, '_')
 used_letters = []
 
 while hp > 0
-    if used_letters.length > 0
-        puts used_letters.join(" ")
-    end
-
-    display_game(hp, word)
+    display_game(hp, word, used_letters)
 
     input_char = get_player_character
     if input_char == " "
@@ -68,4 +70,4 @@ while hp > 0
 end
 
 puts "John died!"
-display_game(0, word)
+display_game(0, word, used_letters)
