@@ -34,6 +34,9 @@ function BuildRunHangman {
             }
             . $exePath
         }
+        {($_ -eq 'python') -or ($_ -eq 'py')} {
+            . ($PSScriptRoot + '\Hangman\Python\hangman.py')
+        }
         {($_ -eq 'ruby') -or ($_ -eq 'rb')} {
             . ($PSScriptRoot + '\Hangman\Ruby\hangman.rb')
         }
