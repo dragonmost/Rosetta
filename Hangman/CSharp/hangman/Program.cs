@@ -1,7 +1,5 @@
 ﻿using System.Text;
 
-Console.WriteLine("John Microsoft is a bad man and is on the hook! Can you save him.");
-
 int HP = 6;
 string Goal = RandomWord();
 StringBuilder Word = new StringBuilder("".PadRight(Goal.Length, '_'));
@@ -66,7 +64,9 @@ void DisplayGame(int hp, string word, char[] usedLetters)
 {
     Console.Clear();
 
-    if(UsedLetters.Count > 0)
+    Console.WriteLine("John Microsoft is a bad man and is on the hook! Can you save him.");
+
+    if(usedLetters.Length > 0)
     {
         Console.WriteLine($"Used letters: {string.Join("", UsedLetters)}");
     }

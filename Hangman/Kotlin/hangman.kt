@@ -1,6 +1,4 @@
 fun main() {
-    println("John Kotlin is a bad man and is on the hook! Can you save him.")
-
     var hp = 6
     val goal = randomWord()
     var word = StringBuilder().append("".padStart(goal.length, '_'))
@@ -49,6 +47,8 @@ fun randomWord(): String  {
 
 fun displayGame(hp: Int, word: StringBuilder, usedLetters: MutableList<Char>) {
     print("\u001b[H\u001b[2J")
+
+    println("John Kotlin is a bad man and is on the hook! Can you save him.")
 
     if (usedLetters.count() > 0) {
         println("Used letters: ${usedLetters.joinToString(" ")}")

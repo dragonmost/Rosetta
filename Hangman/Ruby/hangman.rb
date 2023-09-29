@@ -11,6 +11,8 @@ end
 def display_game(hp, word, used_letters)
     Gem.win_platform? ? (system "cls") : (system "clear")
 
+    puts "John Ruby is a bad man and is on the hook! Can you save him."
+
     if used_letters.length > 0
         puts used_letters.join(" ")
     end
@@ -32,8 +34,6 @@ def random_word
     "rhino", "shark", "sheep", "spider", "toad", "turkey", "turtle", "wolf", "wombat", "zebra"]
     dictionary[rand(dictionary.length)]
 end
-
-puts "John Ruby is a bad man and is on the hook! Can you save him."
 
 hp = 6
 goal = random_word

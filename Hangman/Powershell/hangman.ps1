@@ -1,5 +1,3 @@
-Write-Host "John Microsoft is a bad man and is on the hook! Can you save him."
-
 function GetPlayerCharacter {
     $inputChar = Read-Host
     if ($inputChar.Length -ne 1) {
@@ -18,6 +16,8 @@ function DisplayGame {
     )
 
     Clear-Host
+
+    Write-Host "John Microsoft is a bad man and is on the hook! Can you save him."
 
     if ($usedLetters.Length -gt 0) {
         Write-Host "Used letters: $usedLetters"

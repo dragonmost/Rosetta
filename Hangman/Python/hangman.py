@@ -12,6 +12,8 @@ def get_player_character():
 def display_game(hp, word, used_letters):
     os.system('cls')
 
+    print("John Python is a bad man and is on the hook! Can you save him.")
+
     if len(used_letters) > 0:
         print("Used letters: " + ' '.join(used_letters))
 
@@ -55,8 +57,6 @@ def random_word():
     "frog", "goat", "goose", "hawk", "lion", "lizard", "llama", "mole", "rat", "raven",
     "rhino", "shark", "sheep", "spider", "toad", "turkey", "turtle", "wolf", "wombat", "zebra"]
     return random.choice(dictionary)
-
-print("John Python is a bad man and is on the hook! Can you save him.")
 
 hp = 6
 goal = random_word()
