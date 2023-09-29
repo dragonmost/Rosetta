@@ -34,6 +34,9 @@ function BuildRunHangman {
             }
             . $exePath
         }
+        {($_ -eq 'ruby') -or ($_ -eq 'rb')} {
+            . ($PSScriptRoot + '\Hangman\Ruby\hangman.rb')
+        }
         default { Write-Host 'Unavailable source' }
     }
 
