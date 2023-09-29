@@ -34,6 +34,17 @@ function BuildRunHangman {
             }
             . $exePath
         }
+        {($_ -eq 'kotlin') -or ($_ -eq 'kt')} {
+            $ktPath = ($PSScriptRoot + '\Hangman\Kotlin\hangman.kt') 
+            $jarPath = ($PSScriptRoot + '\Hangman\Kotlin\build\hangman.jar')
+            $kotlinc = ($PSScriptRoot + '\tools\kotlinc\bin\kotlinc')
+
+            if (IsDirty $ktPath $jarPath) {
+                Start-Process -FilePath $kotlinc -ArgumentList "$ktPath -include-runtime -d $jarPath" -Wait
+
+            }
+            java -jar $jarPath
+        }
         {($_ -eq 'python') -or ($_ -eq 'py')} {
             . ($PSScriptRoot + '\Hangman\Python\hangman.py')
         }
@@ -49,6 +60,7 @@ function CleanHangmanFiles {
     $buildDirectories = @(
         ($PSScriptRoot + '\Hangman\CSharp\hangman\bin\'),
         ($PSScriptRoot + '\Hangman\CSharp\hangman\obj\'),
+        ($PSScriptRoot + '\Hangman\Kotlin\build\')
     )
 
     foreach ($dir in $buildDirectories) {
