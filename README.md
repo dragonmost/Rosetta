@@ -1,2 +1,4 @@
-# Rosetta
- Language learning
+#Rosetta
+Languagelearning
+
+Naiveimplemenationofsimplegamesinmultiplelanguages
