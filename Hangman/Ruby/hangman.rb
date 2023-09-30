@@ -8,13 +8,17 @@ def get_player_character
     return input
 end
 
-def display_game(hp, word, used_letters)
+def display_game(hp, word, already_used_char, used_letters)
     Gem.win_platform? ? (system "cls") : (system "clear")
 
     puts "John Ruby is a bad man and is on the hook! Can you save him."
 
+    if already_used_char != ' '
+        puts "Already guessed: #{already_used_char}"
+    end
+
     if used_letters.length > 0
-        puts used_letters.join(" ")
+        puts used_letters.join(' ') + " already used."
     end
 
     puts "    +---+
@@ -39,18 +43,21 @@ hp = 6
 goal = random_word
 word = "".ljust(goal.length, '_')
 used_letters = []
+already_used_char = ' '
 
 while hp > 0
-    display_game(hp, word, used_letters)
+    display_game(hp, word, already_used_char, used_letters)
 
     input_char = get_player_character
     if input_char == " "
         next
     elsif used_letters.include? input_char
-        puts "#{input_char} already used."
+        already_used_char = input_char
         next
     end
     
+    already_used_char = ' '
+
     used_letters.append(input_char)
     if goal.include? input_char
         for i in 0..(goal.length)
@@ -63,6 +70,7 @@ while hp > 0
     end
 
     if word.downcase == goal
+        Gem.win_platform? ? (system "cls") : (system "clear")
         puts "You saved John! The word was #{word}."
         puts " O\r\n/|\\\r\n/ \\"
         return
@@ -70,4 +78,4 @@ while hp > 0
 end
 
 puts "John died!"
-display_game(0, word, used_letters)
+display_game(0, word, already_used_char, used_letters)

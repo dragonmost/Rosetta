@@ -3,17 +3,20 @@ fun main() {
     val goal = randomWord()
     var word = StringBuilder().append("".padStart(goal.length, '_'))
     val usedLetters: MutableList<Char> = ArrayList()
+    var alreadyUsedChar = ' '
 
     while (hp > 0) {
-        displayGame(hp, word, usedLetters)
+        displayGame(hp, word, alreadyUsedChar, usedLetters)
 
         val inputChar = getPlayerCharacter()
         if (inputChar == ' ') {
             continue
         } else if (usedLetters.contains(inputChar)) {
-            println("$inputChar already used.")
+            alreadyUsedChar = inputChar
             continue
         }
+
+        alreadyUsedChar = ' '
 
         usedLetters.add(inputChar)
         if (!goal.contains(inputChar)){
@@ -27,6 +30,7 @@ fun main() {
         }
 
         if (word.toString().lowercase() == goal) {
+            print("\u001b[H\u001b[2J")
             println("You saved John! The word was ${word}")
             println(" O\r\n/|\\\r\n/ \\")
             return
@@ -34,7 +38,7 @@ fun main() {
     }
 
     println("John died!")
-    displayGame(0, word, usedLetters)
+    displayGame(0, word, alreadyUsedChar, usedLetters)
 }
 
 fun randomWord(): String  {
@@ -45,10 +49,14 @@ fun randomWord(): String  {
     return dictionary[(0..dictionary.size -1).random()]
 }
 
-fun displayGame(hp: Int, word: StringBuilder, usedLetters: MutableList<Char>) {
+fun displayGame(hp: Int, word: StringBuilder, alreadyUsedChar: Char, usedLetters: MutableList<Char>) {
     print("\u001b[H\u001b[2J")
 
     println("John Kotlin is a bad man and is on the hook! Can you save him.")
+
+    if (alreadyUsedChar != ' ') {
+        println("Already guessed: $alreadyUsedChar")
+    }
 
     if (usedLetters.count() > 0) {
         println("Used letters: ${usedLetters.joinToString(" ")}")

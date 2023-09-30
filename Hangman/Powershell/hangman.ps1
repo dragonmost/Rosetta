@@ -1,6 +1,6 @@
 function GetPlayerCharacter {
     $inputChar = Read-Host
-    if ($inputChar.Length -ne 1) {
+    if (1 -ne $inputChar.Length) {
         Write-Host "Invalid length"
         return ''
     }
@@ -12,12 +12,17 @@ function DisplayGame {
     param (
         [int]$hp,
         [string]$word,
+        [char]$alreadyUsedChar,
         [array]$usedLetters
     )
 
     Clear-Host
 
     Write-Host "John Microsoft is a bad man and is on the hook! Can you save him."
+
+    if (' ' -ne $alreadyUsedChar) {
+        Write-Host "Already guessed: $alreadyUsedChar"
+    }
 
     if ($usedLetters.Length -gt 0) {
         Write-Host "Used letters: $usedLetters"
@@ -46,16 +51,19 @@ $hp = 6
 $goal = RandomWord
 $word = "".PadLeft($goal.length, '_')
 $usedLetters = @()
+$alreadyUsedChar = ' '
 
 while ($hp -gt 0) {
-    DisplayGame $hp $word $usedLetters
+    DisplayGame $hp $word $alreadyUsedChar $usedLetters
     $inputChar = GetPlayerCharacter
     if (-not $inputChar) {
         continue
     } elseif ($usedLetters.Contains($inputChar)) {
-        Write-Host "$inputChar already used."
+        $alreadyUsedChar = $inputChar
         continue
     }
+
+    $alreadyUsedChar = ' '
 
     $usedLetters += $inputChar
     if ($goal.Contains($inputChar)) {
@@ -77,6 +85,7 @@ while ($hp -gt 0) {
     }
 
     if ($word.ToLower() -eq $goal) {
+        Clear-Host
         Write-Host "You saved John! The word was $goal"
         Write-Host " O`r`n/|\`r`n/ \"
         return

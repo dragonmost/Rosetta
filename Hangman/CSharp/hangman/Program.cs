@@ -4,10 +4,11 @@ int HP = 6;
 string Goal = RandomWord();
 StringBuilder Word = new StringBuilder("".PadRight(Goal.Length, '_'));
 List<char> UsedLetters = new();
+char alreadyUsedChar = ' ';
 
 while (HP > 0)
 {
-    DisplayGame(HP, Word.ToString(), UsedLetters.ToArray());
+    DisplayGame(HP, Word.ToString(), alreadyUsedChar, UsedLetters.ToArray());
 
     char inputChar = GetPlayerCharacter();
     if (inputChar == char.MinValue)
@@ -16,9 +17,11 @@ while (HP > 0)
     }
     else if (UsedLetters.Contains(inputChar))
     {
-        Console.WriteLine($"{inputChar} already used.");
+        alreadyUsedChar = inputChar;
         continue;
     }
+
+    alreadyUsedChar = ' ';
 
     UsedLetters.Add(inputChar);
     if (!Goal.Contains(inputChar))
@@ -38,6 +41,7 @@ while (HP > 0)
 
     if (Word.ToString().ToLower() == Goal)
     {
+        Console.Clear();
         Console.WriteLine($"You saved John! The word was {Word}.");
         Console.WriteLine(" O\r\n/|\\\r\n/ \\");
         return;
@@ -45,7 +49,7 @@ while (HP > 0)
 }
 
 Console.WriteLine("John died!");
-DisplayGame(HP, Word.ToString(), UsedLetters.ToArray());
+DisplayGame(HP, Word.ToString(), alreadyUsedChar, UsedLetters.ToArray());
 
 char GetPlayerCharacter()
 {
@@ -60,11 +64,16 @@ char GetPlayerCharacter()
     return input.ToLower()[0];
 }
 
-void DisplayGame(int hp, string word, char[] usedLetters)
+void DisplayGame(int hp, string word, char alreadyUsedChar, char[] usedLetters)
 {
     Console.Clear();
 
     Console.WriteLine("John Microsoft is a bad man and is on the hook! Can you save him.");
+
+    if(alreadyUsedChar != ' ')
+    {
+        Console.WriteLine($"Already guessed: {alreadyUsedChar}");
+    }
 
     if(usedLetters.Length > 0)
     {

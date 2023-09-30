@@ -9,10 +9,13 @@ def get_player_character():
     
     return input_result.lower()
 
-def display_game(hp, word, used_letters):
+def display_game(hp, word, already_used_char, used_letters):
     os.system('cls')
 
     print("John Python is a bad man and is on the hook! Can you save him.")
+
+    if (already_used_char != ' '):
+        print("Already guessed: " + already_used_char)
 
     if len(used_letters) > 0:
         print("Used letters: " + ' '.join(used_letters))
@@ -62,15 +65,18 @@ hp = 6
 goal = random_word()
 word = "".zfill(len(goal)).replace("0", "_")
 used_letters = []
+already_used_char = ' '
 
 while hp > 0:
-    display_game(hp, word, used_letters)
+    display_game(hp, word, already_used_char, used_letters)
     input_char = get_player_character()
     if input_char == " ":
         continue
     elif input_char in used_letters:
-        print(input_char + " already used.")
+        already_used_char = input_char
         continue
+
+    already_used_char = ' '
 
     used_letters.append(input_char)
     if input_char in goal:
@@ -84,10 +90,11 @@ while hp > 0:
         hp -= 1
     
     if word.lower() == goal:
+        os.system('cls')
         print("You saved John! The word was {}.".format(word))
         print(" O\r\n/|\\\r\n/ \\")
         break
 
 if hp == 0:
     print("John died!")
-    display_game(hp, word, used_letters)
+    display_game(hp, word, already_used_char, used_letters)
