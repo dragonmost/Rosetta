@@ -8,6 +8,9 @@ Naive implemenation of simple games in multiple languages
 ## C#
 Install dotnet tools and .net5 or later
 
+## Free Pascal
+https://www.freepascal.org/download.html
+
 ## Kotlin
 Unzip kotlin release https://github.com/JetBrains/kotlin/releases/latest into `tools/` directory in repo's root. 
 

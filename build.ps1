@@ -34,6 +34,18 @@ function BuildRunHangman {
             }
             . $exePath
         }
+        {($_ -eq 'freepascal') -or ($_ -eq 'fp') -or ($_ -eq 'delphi')} {
+            $fpPath = ($PSScriptRoot + '\Hangman\FreePascal\hangman.fp')
+            $buildPath = ($PSScriptRoot + '\Hangman\FreePascal\build\')
+            $exePath = ($PSScriptRoot + '\Hangman\FreePascal\build\hangman.exe')
+            $fpcPath = ($PSScriptRoot + '\tools\fpc\bin\i386-win32\fpc.exe')
+
+            if (IsDirty $fpPath $exePath) {
+                New-Item -Path $buildPath -ItemType "directory" -errorAction SilentlyContinue | Out-Null
+                Start-Process -FilePath $fpcPath -Argumentlist "-FE$buildPath $fpPath" -Wait
+            }
+            . $exePath
+        }
         {($_ -eq 'kotlin') -or ($_ -eq 'kt')} {
             $ktPath = ($PSScriptRoot + '\Hangman\Kotlin\hangman.kt') 
             $jarPath = ($PSScriptRoot + '\Hangman\Kotlin\build\hangman.jar')
@@ -63,6 +75,7 @@ function CleanHangmanFiles {
     $buildDirectories = @(
         ($PSScriptRoot + '\Hangman\CSharp\hangman\bin\'),
         ($PSScriptRoot + '\Hangman\CSharp\hangman\obj\'),
+        ($PSScriptRoot + '\Hangman\FreePascal\build\')
         ($PSScriptRoot + '\Hangman\Kotlin\build\')
     )
 
