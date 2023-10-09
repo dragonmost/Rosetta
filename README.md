@@ -22,3 +22,5 @@ Install python3 https://www.python.org/downloads/
 
 ## Ruby
 Install Ruby https://www.ruby-lang.org/en/documentation/installation/
+## VB.Net
+Install dotnet tools and .net5 or later

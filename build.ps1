@@ -66,6 +66,17 @@ function BuildRunHangman {
         {($_ -eq 'ruby') -or ($_ -eq 'rb')} {
             . ($PSScriptRoot + '\Hangman\Ruby\hangman.rb')
         }
+        {($_ -eq 'visualbasic') -or ($_ -eq 'vbnet') -or ($_ -eq 'vb')} {
+            $vbPath = ($PSScriptRoot + '\Hangman\VisualBasic\hangman.vb')
+            $vbprojPath = ($PSScriptRoot + '\Hangman\VisualBasic\hangman.vbproj')
+            $exePath = ($PSScriptRoot + '\Hangman\VisualBasic\build\hangman.exe')
+            $buildPath = ($PSScriptRoot + '\Hangman\VisualBasic\build\')
+
+            if (IsDirty $vbPath $exePath) {
+                dotnet build -o $buildPath $vbprojPath
+            }
+            . $exePath
+        }
         default { Write-Host 'Unavailable source' }
     }
 
@@ -76,7 +87,9 @@ function CleanHangmanFiles {
         ($PSScriptRoot + '\Hangman\CSharp\hangman\bin\'),
         ($PSScriptRoot + '\Hangman\CSharp\hangman\obj\'),
         ($PSScriptRoot + '\Hangman\FreePascal\build\')
-        ($PSScriptRoot + '\Hangman\Kotlin\build\')
+        ($PSScriptRoot + '\Hangman\Kotlin\build\'),
+        ($PSScriptRoot + '\Hangman\VisualBasic\build\'),
+        ($PSScriptRoot + '\Hangman\VisualBasic\obj\')
     )
 
     foreach ($dir in $buildDirectories) {
