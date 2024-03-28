@@ -14,6 +14,10 @@ https://www.freepascal.org/download.html
 ## Kotlin
 Unzip kotlin release https://github.com/JetBrains/kotlin/releases/latest into `tools/` directory in repo's root. 
 
+## Lua
+Unzip lua release https://luabinaries.sourceforge.net/download.html into `tools/` directory in repo's root
+
+Requires 5.4 or later
 ## Powershell
 Install Powershell on Linux https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-linux?view=powershell-7.3
 

@@ -57,6 +57,10 @@ function BuildRunHangman {
             }
             java -jar $jarPath
         }
+        {($_ -eq 'lua')} {
+            $lua = ($PSScriptRoot + "\tools\lua\lua54.exe")
+            . $lua ($PSScriptRoot + '\Hangman\Lua\hangman.lua')
+        }
         {($_ -eq 'powershell') -or ($_ -eq 'pwsh') -or ($_ -eq 'ps')} {
             . ($PSScriptRoot + '\Hangman\Powershell\hangman.ps1')
         }
