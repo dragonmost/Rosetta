@@ -1,8 +1,46 @@
+<#
+    .SYNOPSIS
+    Rosetta build scripts.
+
+    .DESCRIPTION
+    Tool to auto compile/build the Rosetta language learning project.
+
+    .PARAMETER Project
+    Project to run [hangman (default)]
+
+    .PARAMETER Source
+    Source language [cs (default), fp, kt, lua, ps, py, rb, vb]
+
+    .PARAMETER Clean
+    Clean build folders
+
+    .PARAMETER Help
+    Get this help
+
+    .OUTPUTS
+    System.String. Add-Extension returns a string with the extension or file name.
+
+    .EXAMPLE
+    PS> build.ps1 -p 'hangman' -s 'cs'
+
+    .EXAMPLE
+    PS> build.ps1 -project 'hangman' -source 'cs'
+
+    .EXAMPLE
+    PS> build.ps1 -clean
+
+    .LINK
+    Source: https://github.com/dragonmost/Rosetta
+#>
+
 param (
-    [string]$p='hangman',
-    [string]$s='CSharp',
-    [switch]$clean
+    [string]$project='hangman',
+    [string]$source='CSharp',
+    [switch]$clean,
+    [switch]$help
     )
+
+#-----------------------------------------------------------[Functions]------------------------------------------------------------
 
 function IsDirty {
     param (
@@ -105,12 +143,19 @@ function CleanBuildFiles {
     CleanHangmanFiles
 }
 
+#-----------------------------------------------------------[Execution]------------------------------------------------------------
+
+if ($help) {
+    Get-Help $PSCommandPath
+    return
+}
+
 if ($clean) {
     CleanBuildFiles
     return
 }
 
-switch ($p.ToLower())
+switch ($project.ToLower())
 {
-    'hangman' {BuildRunHangman $s}
+    'hangman' {BuildRunHangman $source}
 }
